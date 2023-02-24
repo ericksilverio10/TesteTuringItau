@@ -7,7 +7,7 @@ Projeto para o processo seletivo do programa de estágio do Itaú desenvolvido p
 * Spring Boot 🍃
 * Spring Data JPA 🍃
 * Thymeleaf 🍃
-* MySQL 🗄🐬
+* MySQL 🐬
 
 ### Front-end:
 * HTML, CSS e Javascript 🖌️
