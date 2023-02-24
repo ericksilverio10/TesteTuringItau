@@ -1,0 +1,139 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2764/2764747.png"/>
+    <script src="https://unpkg.com/imask"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js" integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Nova Transferência</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/morph/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+   <style>
+.btnOutline{
+		border: 2px solid #d9e3f1;
+		background: transparent;
+		color: #d9e3f1;
+		padding: 5px 25px;
+		border-radius: 20px;
+		transition: .4s;
+		margin: 10px 60px;
+		text-decoration: none
+	}
+	.btnOutline:hover{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+	}
+	.btnOutline:ACTIVE{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+	}
+	.btnEntrar{
+		background: transparent;
+		color: #d9e3f1;
+		border: none;
+		padding: 0;
+		font-size: 1.7rem;
+		margin: 0 60px 0 5px;
+	}
+	</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a style="margin: 9px 40px" class="navbar-brand" href="home"><i style="margin-right: 5px" class="fas fa-building-columns"></i> Banco Turing</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link active" href="../home"><i style="margin-right: 5px" class="fas fa-home"></i>Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="transferencia/nova"><i style="margin-right: 5px" class="fas fa-dollar-sign"></i>Nova transferência</a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="/extrato"><i style="margin-right: 5px" class="fas fa-file-invoice"></i>Meu extrato</a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="../faleconosco"><i style="margin-right: 5px" class="fas fa-phone"></i>Fale conosco</a>
+        </li>
+      </ul>   
+	  <button onclick="window.location.href='/sair'" class="btnEntrar" type="submit"><i class="fas fa-arrow-right-to-bracket"></i></button>
+    </div>
+  </div>
+</nav>
+  <br>
+  <div class="container">
+  
+	<div class="alert alert-danger" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+  <div class="row">
+    <h1>Nova Transferência</h1>
+  </div>
+  <div class="container">
+  	<div class="row">
+  		<form action="/home" method="POST">
+  		<input type="hidden" name="idEmissor" th:value="${usuario.getId()}"/> 
+  		<input type="hidden" id="data" name="data"/> 
+  		
+  		
+  		<div class="form-group">
+	 	 <label class="form-label mt-4">Valor</label>
+		  <div class="form-group">
+		    <div class="input-group mb-3">
+		      <span class="input-group-text">R$</span>
+		      <input id="valor" required="required" name="valor" type="text" class="form-control">
+		    </div>
+		  </div>
+		</div>
+  		
+  			<div class="mb-3">
+  				<label>Tipo de transferência</label>
+  				<br>
+  				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+  				<input type="radio" class="btn-check" name="tipo" id="btnradio1" autocomplete="off" value="PIX" checked=true>
+  				<label class="btn btn-outline-primary" for="btnradio1"><i style="margin-right: 10px" class="fa-brands fa-pix"></i>Pix</label>
+  				<input type="radio" class="btn-check" name="tipo" id="btnradio2" autocomplete="off" value="TED" checked=false>
+  				<label class="btn btn-outline-primary" for="btnradio2"><i style="margin-right: 10px" class="fas fa-right-left"></i>TED</label>
+  				<input type="radio" class="btn-check" name="tipo" id="btnradio3" autocomplete="off" value="DOC" checked=false>
+  				<label class="btn btn-outline-primary" for="btnradio3"><i style="margin-right: 10px" class="fas fa-file"></i>DOC</label>
+			</div>
+  			</div>
+  			<div class="mb-3">
+  				<label class="form-label">Para quem deseja fazer a transferência?</label>
+  				<select class="form-select" name="idReceptor">
+  					<option th:each="usuario : ${usuarios}"
+  					th:value="${usuario.getId()}" th:text="${usuario.getNome()}"></option>
+  				</select>
+  			</div>
+  			<button class="btn btn-primary" type="submit">Fazer transferência</button>
+  			<br><br>
+  			<a href="/home">Voltar</a>
+  		</form>
+  	</div>
+  </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</html>
+<script>
+	
+$(document).on('input','#valor',function(event) {
+	  this.value = parseFloat(this.value.replace(/(.*){1}/, '0$1').replace(/[^\d]/g, '').replace(/(\d\d?)$/, '.$1')).toFixed(2);
+	});
+	
+	
+	
+	
+	
+	
+	
+	let data = new Date().toLocaleString();
+	$("#data").val(data);
+</script>

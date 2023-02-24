@@ -1,0 +1,108 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2764/2764747.png"/>
+    <title>Extrato</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/morph/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+  <style>
+.btnOutline{
+		border: 2px solid #d9e3f1;
+		background: transparent;
+		color: #d9e3f1;
+		padding: 5px 25px;
+		border-radius: 20px;
+		transition: .4s;
+		margin: 10px 60px;
+		text-decoration: none
+	}
+	.btnOutline:hover{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+	}
+	.btnOutline:ACTIVE{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+	}
+	.btnEntrar{
+		background: transparent;
+		color: #d9e3f1;
+		border: none;
+		padding: 0;
+		font-size: 1.7rem;
+		margin: 0 60px 0 5px;
+	}
+	</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a style="margin: 9px 40px" class="navbar-brand" href="home"><i style="margin-right: 5px" class="fas fa-building-columns"></i> Banco Turing</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link active" href="home"><i style="margin-right: 5px" class="fas fa-home"></i>Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="transferencia/nova"><i style="margin-right: 5px" class="fas fa-dollar-sign"></i>Nova transferência</a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="/extrato"><i style="margin-right: 5px" class="fas fa-file-invoice"></i>Meu extrato</a>
+        </li>
+        <li style="margin: 0 10px" class="nav-item">
+          <a class="nav-link" href="faleconosco"><i style="margin-right: 5px" class="fas fa-phone"></i>Fale conosco</a>
+        </li>
+      </ul>   
+	  <button onclick="window.location.href='/sair'" class="btnEntrar" type="submit"><i class="fas fa-arrow-right-to-bracket"></i></button>
+    </div>
+  </div>
+</nav>
+  <br>
+  <div class="container">
+  <div class="row">
+	  <div class="col-md-10">
+	    <h1>Seu extrato</h1>  
+	  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-12">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Data</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Emissor</th>
+      <th scope="col">Receptor</th>
+      <th scope="col">Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <tr th:each="item: ${extrato}">
+     	<th th:class="${item.getClasse()}" scope="row" th:text="${item.getId().toString()}">1</th>
+      	<td th:class="${item.getClasse()}" th:text="${item.getData()}"></td>
+      	<td th:class="${item.getClasse()}" th:text="${item.getTipo()}"></td>
+      	<td th:class="${item.getClasse()}" th:text="${item.getEmissor()}"></td>
+      	<td th:class="${item.getClasse()}" th:text="${item.getReceptor()}"></td>
+     	<td th:class="${item.getClasse()}" >R$ <span th:text="${item.getValor().toString()}"></span></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+  </div>
+  <div class="row">
+  	<a href="javascript:history.back()">Voltar</a>
+  </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>

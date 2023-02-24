@@ -1,0 +1,179 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2764/2764747.png"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js" integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Abra sua conta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/morph/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+  
+  <style>
+  	.btnEntrar{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+		padding: 8px;
+		border-radius: 40px;
+		transition: .4s;
+	}
+	.btnEntrar:hover{
+		border: 2px solid #d9e3f1;
+		background: transparent;
+		color: #d9e3f1;
+	}
+	.btnEntrar:ACTIVE{
+		border: 2px solid #d9e3f1;
+		background: #d9e3f1;
+		color: #222222;
+	}
+	.btnEntrar:DISABLED {
+	opacity: 50%
+}
+  </style>
+  
+  
+  
+  
+  <section class="vh-100 gradient-custom">
+  <div class="alert alert-danger" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2"><i class="fa-solid fa-building-columns"></i> Cadastrar</h2>
+              <p class="text-white-50 mb-10">Digite suas informações abaixo</p>
+				<form action="/cadastrar" method="POST">
+				
+              <div class="form-floating mb-3">
+                <input required="required" placeholder="Digite seu usuário" type="text" name="nome" id="typeEmailX" class="form-control form-control-lg" />
+                <label style="color: #3d3d3d" for="typeEmailX"><i style="margin-right: 5px" class="fa-solid fa-id-card"></i>  Nome completo</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input required="required" placeholder="Digite sua senha" type="text" name="username" id="typePasswordX" class="form-control form-control-lg" />
+                <label style="color: #3d3d3d"for="typePasswordX"><i style="margin-right: 5px" class="fa-solid fa-user"></i>  Usuário</label>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input required="required" placeholder="Digite sua senha" type="text" name="saldo" id="saldo" class="form-control form-control-lg" />
+                <label style="color: #3d3d3d"for="typePasswordX"><i style="margin-right: 5px" class="fa-solid fa-dollar-sign"></i>  Saldo inicial</label>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input required="required" placeholder="Digite sua senha" type="password" name="senha" id="floatingInput" onKeyUp="verificaForcaSenha()" class="form-control form-control-lg" />
+                <label style="color: #3d3d3d"for="typePasswordX"><i style="margin-right: 5px" class="fa-solid fa-lock"></i>  Senha</label>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input required="required" placeholder="Confirme a sua senha" type="password" id="floatingPassword" onKeyUp="verificaForcaSenha1()" class="form-control form-control-lg" />
+                <label style="color: #3d3d3d"for="typePasswordX"><i style="margin-right: 5px" class="fa-solid fa-lock"></i>  Confirme sua senha</label>
+              </div>
+				<br>
+
+              <button id="btnEntrar" class="btnEntrar px-5" type="submit">Criar conta</button>
+              <br>
+              
+<span id="password-status"></span><br>
+<span id="comparativo"></span>
+			</form>	
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </body>
+</html>
+<script> 
+
+$(document).on('input','#saldo',function(event) {
+	  this.value = parseFloat(this.value.replace(/(.*){1}/, '0$1').replace(/[^\d]/g, '').replace(/(\d\d?)$/, '.$1')).toFixed(2);
+	});
+	
+
+
+
+function verificaForcaSenha()
+{
+var numeros = /([0-9])/;
+var alfabetoMin = /([a-z])/;
+var alfabetoMai = /([A-Z])/;
+var chEspeciais = /([~,!,@@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+    if ($('#floatingInput').val() == $('#floatingPassword').val()) {
+        $('#comparativo').html("<span style='color:green'><b>Senhas conferem</b></span>");
+    }
+    else {
+        $('#comparativo').html("<span style='color:red'><b>Senhas não conferem</b></span>");
+    }
+    if ($('#floatingInput').val().length < 8) {
+        $('#password-status').html("<span style='color:red'>Fraco, mínimo de 8 caracteres</span>");
+        $("#btnEntrar").prop('disabled', true);
+        return;
+    } 
+    if (!$('#floatingInput').val().match(numeros)) {
+        $('#password-status').html("<span style='color:orange'>Médio, conter número</span>");
+        $("#btnEntrar").prop('disabled', true);
+        return;
+    }
+    if (!$('#floatingInput').val().match(alfabetoMin)) {
+        $('#password-status').html("<span style='color:orange'>Médio, conter letra minúscula</span>");
+        $("#btnEntrar").prop('disabled', true);
+        return;
+    }
+    if (!$('#floatingInput').val().match(alfabetoMai)) {
+        $('#password-status').html("<span style='color:orange'>Médio, conter letra maiúscula</span>");
+        $("#btnEntrar").prop('disabled', true);
+        return;
+    }
+    if (!$('#floatingInput').val().match(chEspeciais)) {
+        $('#password-status').html("<span style='color:orange'>Médio, conter caracter especial</span>");
+        $("#btnEntrar").prop('disabled', true);
+        return;
+    }
+    $('#password-status').html("<span style='color:green'><b>Forte</b></span>");
+    if ($('#floatingInput').val() == $('#floatingPassword').val()) {
+        $("#btnEntrar").removeAttr("Disabled");
+    }
+    else {
+        $("#btnEntrar").prop('disabled', true);
+    }		    
+    
+}
+
+
+function verificaForcaSenha1() {
+    var numeros = /([0-9])/;
+    var alfabetoMin = /([a-z])/;
+    var alfabetoMai = /([A-Z])/;
+    var chEspeciais = /([~,!,@@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+    if ($('#floatingInput').val().length < 8) {
+        $('#comparativo').html("<span style='color:red'><b>Senhas não conferem</b></span>");
+        $("#btnEntrar").prop('disabled', true);
+    } else {
+        if ($('#floatingInput').val().match(numeros) && $('#floatingInput').val().match(alfabetoMin) && $('#floatingInput').val().match(alfabetoMai) && $('#floatingInput').val().match(chEspeciais)) {
+            if ($('#floatingInput').val() == $('#floatingPassword').val()) {
+                $('#comparativo').html("<span style='color:green'><b>Senhas conferem</b></span>");
+                $("#btnEntrar").removeAttr("Disabled");
+            }
+            else {
+                $('#comparativo').html("<span style='color:red'><b>Senhas não conferem</b></span>");
+                $("#btnEntrar").prop('disabled', true);
+            }
+        } else {
+            $('#comparativo').html("<span style='color:red'><b>Senhas não conferem</b></span>");
+            $("#btnEntrar").prop('disabled', true);
+        }
+    }
+}
+</script>
