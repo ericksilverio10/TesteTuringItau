@@ -4,6 +4,7 @@ Projeto para o processo seletivo do programa de estágio do Itaú desenvolvido p
 ## Tecnologias Utilizadas:
 ### Back-end:
 * Java ☕
+* Eclipse IDE 🌙
 * Spring Boot 🍃
 * Spring Data JPA 🍃
 * Thymeleaf 🍃
