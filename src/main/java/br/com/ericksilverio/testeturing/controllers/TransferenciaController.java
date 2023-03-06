@@ -76,9 +76,20 @@ public class TransferenciaController {
 		
 		String tipo = transferencia.getTipo().toString();	
 		
-		String id_emissor = transferencia.getIdEmissor().toString();		
+		String id_emissor = transferencia.getIdEmissor().toString();	
 		
-		String id_receptor = transferencia.getIdReceptor().toString();	
+		String id_receptor;
+		
+		if (transferencia.getIdReceptor() == null) {
+			ModelAndView mv = new ModelAndView("redirect:/transferencia/nova");
+			
+			attributes.addFlashAttribute("mensagem","Selecione um usuário para realizar a transferência!");
+
+			return mv;
+		}
+		else {			
+			id_receptor = transferencia.getIdReceptor().toString();		
+		}
 		
 		Double valor = transferencia.getValor();
 		
