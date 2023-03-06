@@ -28,8 +28,7 @@ public class LoginController {
 	    }
 	
 	@GetMapping("/login")
-	public String index() {
-	  	this.usuarioRepository.criaUsuarioPadrao();	
+	public String index() {	
 		return "login/index";
 	}
 	
