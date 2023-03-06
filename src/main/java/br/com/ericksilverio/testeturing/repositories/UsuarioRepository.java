@@ -20,6 +20,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Modifying
 	@Transactional
+	@Query(value = "INSERT INTO usuario (nome, saldo, senha, username) SELECT 'Erick Silvério Blass', 1000000.00, 'Pulp258096@', 'ericksilverio' WHERE NOT EXISTS (SELECT * FROM usuario);", nativeQuery = true)
+	void criaUsuarioPadrao();
+	
+	@Modifying
+	@Transactional
 	@Query(value = "UPDATE usuario SET saldo = saldo - :valor WHERE id = :id", nativeQuery = true)
 	void descontaSaldoEmissor(Double valor, String id);
 
