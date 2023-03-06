@@ -23,13 +23,13 @@ public class LoginController {
 	private UsuarioRepository usuarioRepository;
 	
 	  @RequestMapping(value = "/", method = RequestMethod.GET)
-	    public String indexLogin() {
+	    public String indexLogin() {	  
 	        return "login/index";
-	
 	    }
 	
 	@GetMapping("/login")
 	public String index() {
+	  	this.usuarioRepository.criaUsuarioPadrao();	
 		return "login/index";
 	}
 	
